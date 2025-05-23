@@ -1,0 +1,92 @@
+CREATE DATABASE akademik_program_studi;
+CREATE TABLE Mahasiswa (
+    NIM CHAR(10) PRIMARY KEY,
+    Nama VARCHAR(100),
+    JenisKelamin ENUM('L', 'P'),
+    Alamat TEXT,
+    TglLahir DATE
+);
+CREATE TABLE Dosen (
+    id_dosen INT AUTO_INCREMENT PRIMARY KEY,
+    NIDN VARCHAR(10),
+    Nama VARCHAR(100),
+    Email VARCHAR(100),
+    NoHP VARCHAR(15)
+);
+CREATE TABLE MataKuliah (
+    KodeMK CHAR(6) PRIMARY KEY,
+    NamaMK VARCHAR(100),
+    SKS INT,
+    Semester INT,
+    id_dosen INT,
+    FOREIGN KEY (id_dosen) REFERENCES Dosen(id_dosen)
+);
+CREATE TABLE KRS (
+    IDKRS INT AUTO_INCREMENT PRIMARY KEY,
+    NIM CHAR(10),
+    KodeMK CHAR(6),
+    TahunAjaran VARCHAR(9),
+    Semester VARCHAR(10),
+    FOREIGN KEY (NIM) REFERENCES Mahasiswa(NIM),
+    FOREIGN KEY (KodeMK) REFERENCES MataKuliah(KodeMK)
+    );
+    -- Data Mahasiswa
+INSERT INTO Mahasiswa VALUES 
+('M001', 'Andi', 'L', 'Jl. Melati 1', '2002-01-10'),
+('M002', 'Budi', 'L', 'Jl. Mawar 2', '2002-02-20'),
+('M003', 'Citra', 'P', 'Jl. Kenanga 3', '2001-03-15'),
+('M004', 'Dina', 'P', 'Jl. Anggrek 4', '2001-04-25'),
+('M005', 'Eka', 'L', 'Jl. Teratai 5', '2000-05-05'),
+('M006', 'Farah', 'P', 'Jl. Kamboja 6', '2000-06-06'),
+('M007', 'Gilang', 'L', 'Jl. Dahlia 7', '1999-07-07'),
+('M008', 'Hana', 'P', 'Jl. Flamboyan 8', '1999-08-08'),
+('M009', 'Ivan', 'L', 'Jl. Cemara 9', '1998-09-09'),
+('M010', 'Joko', 'L', 'Jl. Merpati 10', '1998-10-10');
+
+-- Data Dosen
+INSERT INTO Dosen  VALUES
+(1, 'ND001', 'Dr. Siti', 'siti@kampus.ac.id', '081234567001'),
+(2, 'ND002', 'Dr. Budi', 'budi@kampus.ac.id', '081234567002'),
+(3, 'ND003', 'Dr. Tono', 'tono@kampus.ac.id', '081234567003'),
+(4, 'ND004', 'Dr. Ani', 'ani@kampus.ac.id', '081234567004'),
+(5, 'ND005', 'Dr. Lina', 'lina@kampus.ac.id', '081234567005'),
+(6, 'ND006', 'Dr. Rudi', 'rudi@kampus.ac.id', '081234567006'),
+(7, 'ND007', 'Dr. Wati', 'wati@kampus.ac.id', '081234567007'),
+(8, 'ND008', 'Dr. Eko', 'eko@kampus.ac.id', '081234567008'),
+(9, 'ND008', 'Dr. Yani', 'yani@kampus.ac.id', '081234567009'),
+(10,'ND009', 'Dr. Dani', 'dani@kampus.ac.id', '081234567010');
+
+
+-- Data Mata Kuliah
+INSERT INTO MataKuliah VALUES 
+('MK001', 'Pemrograman Dasar', 3, 2, 1), 
+('MK002', 'Struktur Data', 3,2, 2),
+('MK003', 'Basis Data', 3, 2, 3),
+('MK004', 'Sistem Operasi', 3, 2, 4),
+('MK005', 'Jaringan Komputer', 3, 2, 5),
+('MK006', 'Kecerdasan Buatan', 3, 2, 6),
+('MK007', 'Pemrograman Web', 3, 2, 7),
+('MK008', 'Algoritma & Logika', 3, 2, 8),
+('MK009', 'Sistem Informasi', 3, 2, 9),
+('MK010', 'Manajemen Proyek', 3, 2, 10);
+
+SELECT * FROM Mahasiswa;
+SELECT * FROM Dosen;
+SELECT * FROM MataKuliah;
+SELECT * FROM KRS;
+
+INSERT INTO KRS (NIM, KodeMK, TahunAjaran, Semester) VALUES
+('M001', 'MK001', '2024/2025', 'Ganjil'),
+('M002', 'MK002', '2024/2025', 'Ganjil'),
+('M003', 'MK003', '2024/2025', 'Genap'),
+('M004', 'MK004', '2024/2025', 'Genap'),
+('M005', 'MK005', '2024/2025', 'Ganjil');
+
+SELECT * FROM Mahasiswa;
+SELECT * FROM Dosen;
+SELECT * FROM MataKuliah;
+SELECT * FROM KRS;
+
+RENAME TABLE Dosen TO DataDosen;
+SELECT * FROM DataDosen;
+DROP DATABASE akademik_program_studi
